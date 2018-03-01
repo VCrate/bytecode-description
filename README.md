@@ -1,6 +1,7 @@
-# Binary Description
+# Bytecode Description
 
 Tool to read and write to an instruction
+Describe the format
 
 ## Formats
 
