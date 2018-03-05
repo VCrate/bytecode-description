@@ -34,7 +34,7 @@ Instructions are 4 bytes long.
 
 **Register**
 
-| Value | Registre |
+| Value | Register |
 | ----- | -------- |
 | 0x00 | A |
 | 0x01 | B |
