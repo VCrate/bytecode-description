@@ -7,15 +7,15 @@ namespace vcrate { namespace bytecode {
 using instruction_t = ui32;
 constexpr ui32 instruction_size = sizeof(instruction_t);
 
-struct Mask {
-    ui32 mask;
-    ui32 shift;
-    /*
-        0b000x000 -> mask = 0x1; shift = 0x03
-        0b00xxx00 -> mask = 0x7; shift = 0x02
-    */
+class Mask {
+public:
+    Mask(ui32 mask);
 
-    Mask(ui32 mask, ui32 shift);
+    void set_mask(ui32 mask);
+    
+    ui32 get_left_mask() const;
+    ui32 get_mask() const;
+    ui32 get_shift() const;
 
     // set masked bits of 'base' to 'value'
     ui32 encode(ui32 value, ui32 base = 0) const;
@@ -27,6 +27,13 @@ struct Mask {
 
     // returns a mask that is equivalent as applying the first mask, then the second
     static Mask join(Mask const& first, Mask const& second);
+
+private:
+
+    static ui32 get_leading_zero(ui32 mask);
+
+    ui32 mask;
+    ui32 shift;
 
 };
 
