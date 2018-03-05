@@ -37,4 +37,7 @@ private:
 
 };
 
+ui32 encode_signed_value(Mask const& unsigned_part, Mask const& sign, i32 value, ui32 base = 0x00);
+i32 decode_signed_value(Mask const& unsigned_part, Mask const& sign, ui32 value);
+
 }}

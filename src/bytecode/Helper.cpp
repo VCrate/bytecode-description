@@ -1,5 +1,7 @@
 #include <vcrate/bytecode/Helper.hpp>
 
+#include <cmath>
+
 namespace vcrate { namespace bytecode {
 
 Mask::Mask(ui32 mask) {
@@ -42,6 +44,19 @@ Mask Mask::join(Mask const& first, Mask const& second) {
 
 ui32 Mask::get_leading_zero(ui32 mask) {
     return __builtin_ctz(mask);
+}
+
+ui32 encode_signed_value(Mask const& unsigned_part, Mask const& sign, i32 value, ui32 base) {
+    base = unsigned_part.encode(std::abs(value), base);
+    base = sign.encode(value < 0, base);
+    return base;
+}
+
+i32 decode_signed_value(Mask const& unsigned_part, Mask const& sign, ui32 value) {
+    i32 res = unsigned_part.decode(value);
+    if (sign.decode(value))
+        res = -res;
+    return res;
 }
 
 }}
