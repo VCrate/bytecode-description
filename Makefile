@@ -2,7 +2,7 @@
 #                     SRC                    #
 ##############################################
 # All directories to build (inside src/)
-DIR := bytecode
+DIR := 
 # Files to exclude
 EXCLUDED_FILE := 
 # Directories with src/ prefix
