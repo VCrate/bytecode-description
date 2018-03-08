@@ -20,8 +20,8 @@ public:
         this->mask = mask >> shift;
     }
     
-    constexpr ui32 get_left_mask() const    { return mask; }
-    constexpr ui32 get_mask() const         { return mask << shift; }
+    constexpr ui32 get_shifted_mask() const    { return mask << shift; }
+    constexpr ui32 get_mask() const         { return mask; }
     constexpr ui32 get_shift() const        { return shift; }
 
     // set masked bits of 'base' to 'value'
@@ -39,7 +39,7 @@ public:
 
     // returns a mask that is equivalent as applying the first mask, then the second
     static constexpr Mask join(Mask const& first, Mask const& second) {
-        return Mask(first.get_mask() & (second.get_mask() << first.get_shift()));
+        return Mask(first.get_shifted_mask() & (second.get_shifted_mask() << first.get_shift()));
     }
 
 private:
