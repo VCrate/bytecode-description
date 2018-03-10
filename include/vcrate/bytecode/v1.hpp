@@ -68,10 +68,10 @@ constexpr ui32 arg_type_register = 0x0;
 constexpr ui32 arg_type_defer_register = 0x1;
 constexpr ui32 arg_type_defer_register_disp = 0x2;
 constexpr ui32 arg_type_defer_register_disp_next = 0x3;
-constexpr ui32 arg_type_value = 0x4;
-constexpr ui32 arg_type_value_next = 0x5;
-constexpr ui32 arg_type_address = 0x6;
-constexpr ui32 arg_type_address_next = 0x7;
+constexpr ui32 arg_type_address = 0x4;
+constexpr ui32 arg_type_address_next = 0x5;
+constexpr ui32 arg_type_value = 0x6;
+constexpr ui32 arg_type_value_next = 0x7;
 
 constexpr ui32 flag_zero = 1 << 0;
 constexpr ui32 flag_greater = 1 << 1;
