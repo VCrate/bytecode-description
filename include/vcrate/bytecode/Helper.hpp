@@ -26,7 +26,7 @@ public:
 
     // set masked bits of 'base' to 'value'
     constexpr ui32 encode(ui32 value, ui32 base = 0) const {
-        base &= ~get_mask(); // reset base
+        base &= ~get_shifted_mask(); // reset base
         return base | (value & mask) << shift;
     }
 
