@@ -54,15 +54,158 @@ Instructions are 4 bytes long.
 | 0x0E | Base stack pointer (BP) |
 | 0x0F | Stack pointer (SP) |
 
+> Flags in `%FG` :  
+>   - zero: 0x01
+>   - greater: 0x02
+
 **Type**
 
-| Value | Type |
-| ----- | ---- |
-| 0x00 | Register `%X` |
-| 0x01 | Deferred Register `[%X]` |
-| 0x02 | Displaced Deferred Register `[%X + disp]` |
-| 0x03 | Displaced Deferred Register `[%X + disp]` (Displacement not included in the instruction) |
-| 0x04 | Address `[X]` |
-| 0x05 | Address `[X]` (Address not included in the instruction) |
-| 0x06 | Value `X` |
-| 0x07 | Value `X` (Value not included in the instruction) |
+| Value | Readable | Writable | Addressable | Type |
+| ----- | ---- | ---- | ---- | ---- |
+| 0x00 | X | X |   | Register `%X` |
+| 0x01 | X | X | X | Deferred Register `[%X]` |
+| 0x02 | X | X | X | Displaced Deferred Register `[%X + disp]` |
+| 0x03 | X | X | X | Displaced Deferred Register `[%X + disp]` (Displacement not included in the instruction) |
+| 0x04 | X | X | X | Address `[X]` |
+| 0x05 | X | X | X | Address `[X]` (Address not included in the instruction) |
+| 0x06 | X |   |   | Value `X` |
+| 0x07 | X |   |   | Value `X` (Value not included in the instruction) |
+
+## Instruction Set
+
+### Load / Compare
+
+> `MOV a, b` : Load `b` into `a`  
+> `a` need to be writable  
+> `b` need to be readable
+
+> `LEA a, b` : Load the address of `b` into `a`  
+> `a` need to be writable  
+> `b` need to be addressable
+
+> `SWP a, b` : Swap the value of `a` and `b`  
+> `a` and `b` need to be readable and writable  
+
+> `CMP a, b` : Compare `a` and `b`, set the zero and the greater flag    
+> `CMPU` is the unsigned version of `CMPU`  
+> `a` and `b` need to be readable  
+
+### Arithmetic Operations
+
+> `ADD a, b` : Add `b` to `a` (`a += b`)  
+> `a` need to be readable and writable  
+> `b` need to be readable
+
+> `SUB a, b` : Subtract `b` to `a` (`a -= b`)  
+> `a` need to be readable and writable  
+> `b` need to be readable
+
+> `MOD a, b` : store the modulo between `a` and `b` into `a` (`a %= b`)  
+> `a` need to be readable and writable  
+> `b` need to be readable
+
+> `MUL/MULU a, b` : Multiply `b` to `a` (`a *= b`)  
+> `MULU` is the unsigned version of `MUL`  
+> `a` need to be readable and writable  
+> `b` need to be readable
+
+> `DIV/DIVU a, b` : Divide `b` to `a` (`a /= b`)  
+> `DIVU` is the unsigned version of `DIV`  
+> `a` need to be readable and writable  
+> `b` need to be readable
+
+> `INC a` : Increment `a` (`a += 1`)  
+> `a` need to be readable and writable  
+
+> `DEC a` : Decrement `a` (`a -= 1`)  
+> `a` need to be readable and writable  
+
+### Bitwise Operations
+
+> `AND a, b` : bitwise 'and' `a &= b`  
+> `a` need to be readable and writable  
+> `b` need to be readable
+
+> `OR a, b` : bitwise 'or' `a |= b`  
+> `a` need to be readable and writable  
+> `b` need to be readable
+
+> `XOR a, b` : bitwise 'xor' `a ^= b`  
+> `a` need to be readable and writable  
+> `b` need to be readable
+
+> `NEG a` : bitwise 'not' (one's complement) `a ~= a`  
+> `a` need to be readable and writable  
+
+> `SHL a, b` : left shift `a` by `b` into `a` (`a <<= b`)  
+> `a` need to be readable and writable  
+> `b` need to be readable
+
+> `SHR a, b` : right shift `a` by `b` into `a` (`a >>= b`)  
+> `a` need to be readable and writable  
+> `b` need to be readable
+
+> `RTL a, b` : left rotate `a` by `b` into `a` (`a <<<= b`)  
+> `a` need to be readable and writable  
+> `b` need to be readable
+
+> `RTR a, b` : right rotate `a` by `b` into `a` (`a >>>= b`)  
+> `a` need to be readable and writable  
+> `b` need to be readable
+
+### Control Flow
+
+> `JMP a` : Jump to `a` (set `%PC` to `a`)  
+> `a` need to be readable  
+
+> `JMPE a` : Jump to `a` if the zero flag is 1 (set `%PC` to `a`)  
+> `a` need to be readable  
+
+> `JMPNE a` : Jump to `a` if the zero flag is 0 (set `%PC` to `a`)  
+> `a` need to be readable  
+
+> `JMPG a` : Jump to `a` if the greater flag is 1 (set `%PC` to `a`)  
+> `a` need to be readable  
+
+> `JMPGE a` : Jump to `a` if the zero flag or the greater flag is 1 (set `%PC` to `a`)  
+> `a` need to be readable  
+
+> `CALL a` : Push `%PC` to the stack then jump to `a` (set `%PC` to `a`)  
+> `a` need to be readable  
+
+> `RET` : Pop the stack into `%PC`  
+> Inverse operation of `CALL`
+
+> `HLT` : Halt the program with the return value in `%A`
+
+### Stack operations
+
+> `PUSH a` : Push `a` to the stack  
+> `a` need to be readable  
+
+> `POP a` : Pop the last value of the stack to `a`  
+> `a` need to be writable  
+
+> `ETR` : Start a new frame  
+> Push `%BP` and set it to `%SP`
+
+> `LVE` : Restore the last frame  
+> Set `%SP` to `%BP` and Pop the stack into `%BP`  
+> Inverse operation of `ETR`
+
+### System
+
+> `NEW a, b` : Allocate a block of `b` bytes and store the first address in `a`  
+> `a` need to be writable  
+> `b` need to be readable
+
+> `DEL a` : Free a block previously allocated with `NEW`  
+> `a` need to be readable  
+
+### I/O
+
+> `OUT a` : Print the first byte of `a` as a character to the standard output  
+> `a` need to be readable  
+
+> `DBG a` : Print `a` to the standard output  
+> `a` need to be readable  
