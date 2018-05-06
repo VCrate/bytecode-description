@@ -26,7 +26,7 @@ enum class Operations : ui8 {
     AND,  // And (RRW)
     OR,   // Or (RRW)
     XOR,  // Xor (RRW)
-    NEG,  // Negate (RW)
+    NOT,  // Not (RW)
     SHL,  // Shift left (RRW)
     RTL,  // Rotate left (RRW)
     SHR,  // Shift right (RRW)

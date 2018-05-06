@@ -134,7 +134,7 @@ Instructions are 4 bytes long.
 > `a` need to be readable and writable  
 > `b` need to be readable
 
-> `NEG a` : bitwise 'not' (one's complement) `a ~= a`  
+> `NOT a` : bitwise 'not' (one's complement) `a ~= a`  
 > `a` need to be readable and writable  
 
 > `SHL a, b` : left shift `a` by `b` into `a` (`a <<= b`)  

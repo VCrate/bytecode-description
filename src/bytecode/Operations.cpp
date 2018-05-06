@@ -56,7 +56,7 @@ const OpDefinition& OpDefinition::get(Operations ope) {
 
         OP(AND, {RW, R}),
         OP(OR, {RW, R}),
-        OP(NEG, {RW}),
+        OP(NOT, {RW}),
         OP(XOR, {RW, R}),
         OP(SHL, {RW, R}),
         OP(SHR, {RW, R}),
