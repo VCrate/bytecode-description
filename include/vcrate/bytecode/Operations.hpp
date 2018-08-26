@@ -47,8 +47,25 @@ enum class Operations : ui8 {
 
     HLT,  // Halt the program
 
-    OUT,
-    DBG
+    OUT, // Print 8 lower bits as char (R)
+    DBG, // Print integer (R)
+
+    ITU, // int to unsigned (RW)
+    ITF, // int to float (RW)
+    UTI, // unsigned to int (RW)
+    UTF, // unsigned to float (RW)
+    FTI, // float to int (RW)
+    FTU, // float to unsigned (RW)
+
+    ADDF,  // Add float (RRW)
+    SUBF,  // Subtract float (RRW)
+    MODF,  // Modulo float (RRW)
+    MULF,  // Multiply float (RRW)
+    DIVF,  // Divide float (RRW)
+
+    INCF,  // Increment float (RW)
+    DECF,  // Decrement float (RW)
+
 };
 
 struct ArgConstraint {

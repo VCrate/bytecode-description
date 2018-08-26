@@ -88,36 +88,63 @@ Instructions are 4 bytes long.
 
 > `CMP a, b` : Compare `a` and `b`, set the zero and the greater flag    
 > `CMPU` is the unsigned version of `CMPU`  
-> `a` and `b` need to be readable  
+> `a` and `b` need to be readable 
+
+### Conversion
+
+> `ITU a` : Convert a signed integer `a` to an unsigned integer
+> `a` need to be readable and writable  
+
+> `ITF a` : Convert a signed integer `a` to a float
+> `a` need to be readable and writable  
+
+> `UTI a` : Convert an unsigned integer `a` to a signed integer
+> `a` need to be readable and writable  
+
+> `UTF a` : Convert an unsigned integer `a` to a float
+> `a` need to be readable and writable  
+
+> `FTI a` : Convert a float `a` to a signed integer
+> `a` need to be readable and writable  
+
+> `FTU a` : Convert a float `a` to an unsigned integer
+> `a` need to be readable and writable  
 
 ### Arithmetic Operations
 
-> `ADD a, b` : Add `b` to `a` (`a += b`)  
+> `ADD/ADDF a, b` : Add `b` to `a` (`a += b`)  
+> `ADDF` is the float version of `ADD`  
 > `a` need to be readable and writable  
 > `b` need to be readable
 
-> `SUB a, b` : Subtract `b` to `a` (`a -= b`)  
+> `SUB/SUBF a, b` : Subtract `b` to `a` (`a -= b`)  
+> `SUBF` is the float version of `SUB`  
 > `a` need to be readable and writable  
 > `b` need to be readable
 
-> `MOD a, b` : store the modulo between `a` and `b` into `a` (`a %= b`)  
+> `MOD/MODF a, b` : store the modulo between `a` and `b` into `a` (`a %= b`)  
+> `MODF` is the float version of `MOD`  
 > `a` need to be readable and writable  
 > `b` need to be readable
 
-> `MUL/MULU a, b` : Multiply `b` to `a` (`a *= b`)  
+> `MUL/MULU/MULF a, b` : Multiply `b` to `a` (`a *= b`)  
 > `MULU` is the unsigned version of `MUL`  
+> `MULF` is the float version of `MUL`  
 > `a` need to be readable and writable  
 > `b` need to be readable
 
-> `DIV/DIVU a, b` : Divide `b` to `a` (`a /= b`)  
+> `DIV/DIVU/DIVF a, b` : Divide `b` to `a` (`a /= b`)  
 > `DIVU` is the unsigned version of `DIV`  
+> `DIVF` is the float version of `DIV`  
 > `a` need to be readable and writable  
 > `b` need to be readable
 
-> `INC a` : Increment `a` (`a += 1`)  
+> `INC/INCF a` : Increment `a` (`a += 1`)  
+> `INCF` is the float version of `INC`  
 > `a` need to be readable and writable  
 
-> `DEC a` : Decrement `a` (`a -= 1`)  
+> `DEC/DECF a` : Decrement `a` (`a -= 1`)  
+> `DECF` is the float version of `DEC`  
 > `a` need to be readable and writable  
 
 ### Bitwise Operations
