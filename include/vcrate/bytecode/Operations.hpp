@@ -57,14 +57,17 @@ enum class Operations : ui8 {
     FTI, // float to int (RW)
     FTU, // float to unsigned (RW)
 
-    ADDF,  // Add float (RRW)
-    SUBF,  // Subtract float (RRW)
-    MODF,  // Modulo float (RRW)
-    MULF,  // Multiply float (RRW)
-    DIVF,  // Divide float (RRW)
+    ADDF, // Add float (RRW)
+    SUBF, // Subtract float (RRW)
+    MODF, // Modulo float (RRW)
+    MULF, // Multiply float (RRW)
+    DIVF, // Divide float (RRW)
 
-    INCF,  // Increment float (RW)
-    DECF,  // Decrement float (RW)
+    INCF, // Increment float (RW)
+    DECF, // Decrement float (RW)
+
+    DBGF, // Print float (R)
+    DBGU, // Print unsigned (R)
 
 };
 

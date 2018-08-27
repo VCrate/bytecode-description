@@ -95,7 +95,9 @@ const OpDefinition& OpDefinition::get(Operations ope) {
         OP(DEL, {R}),
 
         OP(OUT, {R}),
-        OP(DBG, {R})
+        OP(DBG, {R}),
+        OP(DBGU, {R}),
+        OP(DBGF, {R})
     };
 
 #undef OP
