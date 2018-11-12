@@ -93,6 +93,7 @@ public:
     bool should_be_readable(ui32 arg) const;
 
     static const OpDefinition& get(Operations ope); 
+    static const OpDefinition& get(std::string ope); 
 
 };
 

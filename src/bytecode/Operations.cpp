@@ -2,6 +2,7 @@
 
 #include <map>
 #include <iostream>
+#include <algorithm>
 
 namespace vcrate { namespace bytecode {
 
@@ -26,6 +27,86 @@ bool OpDefinition::should_be_writable(ui32 arg) const {
 
 bool OpDefinition::should_be_addressable(ui32 arg) const {
     return args_constraints[arg] & ArgConstraint::Adressable;
+}
+
+const OpDefinition& OpDefinition::get(std::string ope) {
+
+    std::transform(std::begin(ope), std::end(ope), std::begin(ope), [] (char c) { return std::toupper(c); });
+
+#define OP(op, cs...) { #op, Operations::op }
+
+    static std::map<std::string, Operations> map = {
+        OP(MOV),
+        OP(LEA),
+        OP(SWP),
+        OP(CMP),
+        OP(CMPU),
+
+        OP(ADD),
+        OP(ADDF),
+        OP(SUB),
+        OP(SUBF),
+        OP(MOD),
+        OP(MODF),
+        OP(MUL),
+        OP(MULF),
+        OP(MULU),
+        OP(DIV),
+        OP(DIVF),
+        OP(DIVU),
+        OP(INC),
+        OP(INCF),
+        OP(DEC),
+        OP(DECF),
+
+        OP(ITU),
+        OP(ITF),
+        OP(UTF),
+        OP(UTI),
+        OP(FTI),
+        OP(FTU),
+
+        OP(AND),
+        OP(OR),
+        OP(NOT),
+        OP(XOR),
+        OP(SHL),
+        OP(SHR),
+        OP(RTL),
+        OP(RTR),
+
+        OP(JMP),
+        OP(JMPE),
+        OP(JMPNE),
+        OP(JMPG),
+        OP(JMPGE),
+        OP(CALL),
+        OP(RET),
+        OP(HLT),
+
+        OP(PUSH),
+        OP(POP),
+        OP(ETR),
+        OP(LVE),
+
+        OP(NEW),
+        OP(DEL),
+
+        OP(OUT),
+        OP(DBG),
+        OP(DBGU),
+        OP(DBGF)
+    };
+
+#undef OP
+
+    try {
+        return get(map.at(ope));
+    } catch(...) {
+        std::cerr << "Operation unknown : " << ope << '\n';
+        throw;
+    }
+
 }
 
 const OpDefinition& OpDefinition::get(Operations ope) {
@@ -105,7 +186,7 @@ const OpDefinition& OpDefinition::get(Operations ope) {
     try {
         return def.at(ope);
     } catch(...) {
-        std::cout << "Operation unknown : " << static_cast<ui32>(ope) << '\n';
+        std::cerr << "Operation unknown : " << static_cast<ui32>(ope) << '\n';
         throw;
     }
 }
